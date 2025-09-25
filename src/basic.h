@@ -1,6 +1,13 @@
 #pragma once
 #include <iostream>
+#include <tuple>
+#include <vector>
+#include <string>
+using namespace std;
 
-int basicCalc (int a, int b, char sign);
 
-char operatorSign(std::string expression);
+double basicCalc (string exp);
+
+vector<tuple<int, char>> operatorSign(string expression);
+
+string brackets(string exp);

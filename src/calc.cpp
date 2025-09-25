@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
 #include <cstring>
+#include <vector>
+#include <tuple>
 #include "basic.h"
 # define input cin
 #define print cout
@@ -23,14 +25,15 @@ int main()
         }
     }
 
-    //Spliting the expression and getting the terms and operater in variables
-    int operaterIdx = operatorSign(cleanExp);
+    //stores a tuple of the index and the sign in a vector
+    auto operaters = operatorSign(cleanExp);
 
-    char sign = cleanExp.at(operaterIdx);
-    int a = stoi(cleanExp.substr(0,operaterIdx));
-    int b = stoi(cleanExp.substr(operaterIdx + 1));
-
-    int result = basicCalc(a, b, sign);
+    // for(const auto& op: operaters){
+    //     print << "Position: " << get<0>(op) <<" Operator: " << get<1>(op) <<endl;
+    // }
+    string newExp = brackets(cleanExp);
+    double result = basicCalc(newExp);
+    print << newExp << endl;
     print << "Result: "<< result << endl;
     
     return 0;
