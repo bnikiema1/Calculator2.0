@@ -12,28 +12,15 @@ using namespace std;
 int main()
 {
     string exp;
+    string var1;
+    string var2;
 
     print << "Enter a math expression" <<endl;
-
     getline(input,exp);
 
-    // taking the expression and removing whitespace
-    string cleanExp;
-    for(char c : exp){
-        if(!isspace(c)){
-            cleanExp += c;
-        }
-    }
-
-    //stores a tuple of the index and the sign in a vector
-    auto operaters = operatorSign(cleanExp);
-
-    // for(const auto& op: operaters){
-    //     print << "Position: " << get<0>(op) <<" Operator: " << get<1>(op) <<endl;
-    // }
-    string newExp = brackets(cleanExp);
-    double result = basicCalc(newExp);
-    print << newExp << endl;
+    string cleanExp = brackets(exp);
+    
+    double result = basicCalc(cleanExp);
     print << "Result: "<< result << endl;
     
     return 0;

@@ -12,7 +12,7 @@ double basicCalc(string exp)
     auto operatorPos = operatorSign(exp);
 
     //Initalize a vector to store number between operation signs
-    vector<int> numbers;
+    vector<double> numbers;
     size_t start = 0;
 
     // Isolating the numbers from operators
@@ -71,14 +71,20 @@ vector<tuple<int, char>> operatorSign(string expression){
 
 string brackets(string exp)
 {
+    string cleanExp;
+    for(char c : exp){
+        if(!isspace(c)){
+            cleanExp += c;
+        }
+    }
     string target;
 
-    if(exp.find('(') != std::string::npos && exp.find(')') != std::string::npos){
-        int openp = exp.find('(') + 1;
-        int closep = exp.find(')') ;
-        string newExp = exp.substr(openp , closep - openp );
-        string beforep = exp.substr(0,openp-1);
-        string afterp = exp.substr(closep +1 );
+    if(cleanExp.find('(') != std::string::npos && cleanExp.find(')') != std::string::npos){
+        int openp = cleanExp.find('(') + 1;
+        int closep = cleanExp.find(')') ;
+        string newExp = cleanExp.substr(openp , closep - openp );
+        string beforep = cleanExp.substr(0,openp-1);
+        string afterp = cleanExp.substr(closep +1 );
 
         double x = basicCalc(newExp);
         string pp = to_string(x);
@@ -86,7 +92,7 @@ string brackets(string exp)
 
         return target;
     }else {
-        return exp;
+        return cleanExp;
     }
     
 }
