@@ -33,13 +33,13 @@ char operatorSign(std::string expression){
         if(expression.find("+")!= -1){
         return expression.find("+");
     }
-    else if (expression.find("-") != -1){
+    if (expression.find("-") != -1){
         return expression.find("-");
     }
-    else if (expression.find("*") != -1){
+    if (expression.find("*") != -1){
         return expression.find("*");
     }
-    else if (expression.find("/") != -1){
+    if (expression.find("/") != -1){
         return expression.find("/");
     }
     else{
