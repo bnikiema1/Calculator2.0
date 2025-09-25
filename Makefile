@@ -1,10 +1,9 @@
 CXX = g++
-LD = $(CXX)
 STRIP = strip 
 
 TARGET = myCalc.exe
 
-SRC = calc.cpp basic.cpp
+SRC_DIR = src
 
 CFLAGS = -Wall -Wextra -g
 LDFLAGS =
@@ -12,8 +11,9 @@ LDFLAGS =
 BUILD = build
 
 # OBJS = $(SRC:.cpp =$(BUILD)/%.o)
-OBJS = $(addprefix $(BUILD)/, $(SRC:.cpp=.o))
-DEPS = $(wildcard %.cpp, %.d, $(SRC))
+SRC = $(wildcard $(SRC_DIR)/*.cpp)
+OBJS = $(SRC:$(SRC_DIR)/%.cpp=$(BUILD)/%.o)
+
 
 .PHONY: all
 
@@ -21,10 +21,10 @@ all: $(TARGET)
 
 $(TARGET) : $(OBJS)
 	@if not exist $(BUILD) mkdir $(BUILD)
-	$(LD) $(LDFLAGS) -o $@ $^
+	$(CXX) $(LDFLAGS) -o $@ $^
 
 
-$(BUILD)/%.o: %.cpp
+$(BUILD)/%.o: src/%.cpp
 	@if not exist $(BUILD) mkdir $(BUILD)
 	$(CXX) $(CFLAGS) -c $< -o $@
 
