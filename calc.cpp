@@ -4,6 +4,7 @@
 #include "basic.h"
 # define input cin
 #define print cout
+
 using namespace std;
 
 int main()
@@ -12,16 +13,25 @@ int main()
 
     print << "Enter a math expression" <<endl;
 
-    input >> exp;
-    //Spliting the expression and getting the terms and operater in variables
-    int operaterIdx = operatorSign(exp);
+    getline(input,exp);
 
-    char sign = exp.at(operaterIdx);
-    int a = stoi(exp.substr(0,operaterIdx));
-    int b = stoi(exp.substr(operaterIdx+1));
+    // taking the expression and removing whitespace
+    string cleanExp;
+    for(char c : exp){
+        if(!isspace(c)){
+            cleanExp += c;
+        }
+    }
+
+    //Spliting the expression and getting the terms and operater in variables
+    int operaterIdx = operatorSign(cleanExp);
+
+    char sign = cleanExp.at(operaterIdx);
+    int a = stoi(cleanExp.substr(0,operaterIdx));
+    int b = stoi(cleanExp.substr(operaterIdx + 1));
 
     int result = basicCalc(a, b, sign);
-    print << result << endl;
+    print << "Result: "<< result << endl;
     
     return 0;
 }

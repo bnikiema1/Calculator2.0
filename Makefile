@@ -9,7 +9,10 @@ SRC = calc.cpp basic.cpp
 CFLAGS = -Wall -Wextra -g
 LDFLAGS =
 
-OBJS = $(wildcard %.cpp, %.o, $(SRC))
+BUILD = build
+
+# OBJS = $(SRC:.cpp =$(BUILD)/%.o)
+OBJS = $(addprefix $(BUILD)/, $(SRC:.cpp=.o))
 DEPS = $(wildcard %.cpp, %.d, $(SRC))
 
 .PHONY: all
@@ -17,14 +20,17 @@ DEPS = $(wildcard %.cpp, %.d, $(SRC))
 all: $(TARGET)
 
 $(TARGET) : $(OBJS)
+	@if not exist $(BUILD) mkdir $(BUILD)
 	$(LD) $(LDFLAGS) -o $@ $^
 
 
-%.o: %.cpp
-	$(CXX) -c $(CFLAGS) -o $@ $^
+$(BUILD)/%.o: %.cpp
+	@if not exist $(BUILD) mkdir $(BUILD)
+	$(CXX) $(CFLAGS) -c $< -o $@
 
 run:
 	./$(TARGET)
 
 clean:
-	del $(TARGET)
+	if exist "$(BUILD)" rmdir /s /q "$(BUILD)"
+	if exist "$(TARGET)" del /f /q "$(TARGET)"

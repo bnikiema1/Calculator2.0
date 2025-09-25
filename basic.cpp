@@ -30,16 +30,16 @@ int basicCalc(int a, int b, char sign)
 
 char operatorSign(std::string expression){
 
-        if(expression.find("+")!= -1){
+        if(expression.find("+")!= std::string::npos){
         return expression.find("+");
     }
-    if (expression.find("-") != -1){
+    if (expression.find("-") != std::string::npos){
         return expression.find("-");
     }
-    if (expression.find("*") != -1){
+    if (expression.find("*") != std::string::npos){
         return expression.find("*");
     }
-    if (expression.find("/") != -1){
+    if (expression.find("/") != std::string::npos){
         return expression.find("/");
     }
     else{
